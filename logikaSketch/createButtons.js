@@ -3,7 +3,7 @@ function createButtons(){
 	let list = [];
 
   let pos = 0;
-  let inputHandler = generateInputHandler(experimentalBranch, expressionCache);
+  let inputHandler = generateInputHandler(mainBranch, expressionCache);
   let creatingButton;
   for(let label of Object.keys(Expression.expressionMap)){
     if(label == 'a'){continue;}
