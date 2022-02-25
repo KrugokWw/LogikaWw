@@ -91,6 +91,16 @@ function createButtons(){
   posY = 0;
   posX ++;
 
+  for(let i = "a".charCodeAt(0); i < "a".charCodeAt(0)+5; i++){
+    creatingButton = new Clickable();
+    creatingButton.label = "p" + String.fromCharCode(i);
+    creatingButton.text = String.fromCharCode(i);
+    creatingButton.resize(30, 30);
+    creatingButton.locate(width - posX*creatingButton.width - 5*posX, 5+posY*(creatingButton.height + 5));
+    list[creatingButton.label] = creatingButton;
+    posY ++;
+
+  }
 /*
   creatingButton = new Clickable();
   creatingButton.label = 'export'; //switch input mode (replace / insert)

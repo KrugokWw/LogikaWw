@@ -64,6 +64,9 @@ function generateInputHandler(mainBranch, expressionCache){
 				break;
 			}
 		}
+		else if(this.label[0] == "p"){			//predicate
+			expressionCache.applyPredicate(this.label[1]);
+		}
 		else if(typeof(this.label) == "number"){
 			mainBranch.getFromIndex(mainBranch.activeHeight).addSource(this.label);
 		}

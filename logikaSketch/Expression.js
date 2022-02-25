@@ -155,7 +155,6 @@ class Expression{
 		}
 
 		for(let i = 0; i < Expression.argumentAmount[this.operator]; i++){
-			console.log(1);
 
 			if(i >= this.argumentList.length){
 				this.argumentList.push(argument);
@@ -169,5 +168,24 @@ class Expression{
 		return false;
 	}
 
+	applyPredicate(predicate){
+
+		if(this.operator == "0"){
+			this.argumentList.push(predicate);
+		}
+
+
+		for(let i = Expression.argumentAmount[this.operator]-1; i >= 0 ; i--){
+
+			if(i >= this.argumentList.length){
+				continue;
+			}
+
+			if(this.argumentList[i].applyPredicate(predicate)){
+				return true;
+			}
+		}
+		return false;
+	}
 
 }
