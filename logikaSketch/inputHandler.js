@@ -16,9 +16,11 @@ function generateInputHandler(mainBranch, expressionCache){
 					expressionCache.insertArgument(new Expression('0', this.label[1]));
 				}
 			}
+			
+			//mainBranch.insertAtIndex(new Statement(expressionCache.copy(), 'ua'), mainBranch.activeHeight, mainBranch.activeDepth, true); //highly experimental and may caouse bugs
 
 			if(expressionCache.full){
-				console.log('finished input of expression, dumped into branch');
+				console.log(expressionCache.copy(), 'finished input of expression, dumped into branch');
 				mainBranch.insertAtIndex(new Statement(expressionCache.copy(), 'ua'), mainBranch.activeHeight, mainBranch.activeDepth, mainBranch.replaceMode);
 				mainBranch.activeHeight += int(!mainBranch.replaceMode);
 				expressionCache.clear();
@@ -65,6 +67,9 @@ function generateInputHandler(mainBranch, expressionCache){
 			}
 		}
 		else if(this.label[0] == "p"){			//predicate
+			if(expressionCache.equals(new Expression())){
+				mainBranch.getFromIndex(mainBranch.activeHeight).expression.applyPredicate(this.label[1]);
+			}
 			expressionCache.applyPredicate(this.label[1]);
 		}
 		else if(typeof(this.label) == "number"){

@@ -21,7 +21,7 @@ class Expression{
 
 	type = 'Expression';
 
-	constructor(operator, ...argumentList){
+	constructor(operator = '', ...argumentList){
 		this.operator = operator;
 		this.argumentList = argumentList;
 	}
@@ -33,18 +33,21 @@ class Expression{
 			return false;
 		}
 
-		if(this.operator != '0'){
-			for(let i = 0; i < this.argumentList.length; i++){
+		if(this.argumentList.length != expression.argumentList.length){
+			return false;
+		}
+		for(let i = 0; i < this.argumentList.length; i++){
+			if(this.operator == "0"){
+				if(this.argumentList[i] != expression.argumentList[i]){
+					return false;
+				}
+			}
+			else{
 				if(!this.argumentList[i].equals(expression.argumentList[i])){
 					return false;
 				}
 			}
-		} else {
-			if(this.argumentList[0] != expression.argumentList[0]){
-				return false;
-			}
 		}
-
 
 		return true;
 	}
@@ -59,7 +62,7 @@ class Expression{
 				argumentStrings[i] = '_';
 			}
 			else if(this.operator == '0'){
-				argumentStrings[i] = this.argumentList[i];
+				argumentStrings = this.argumentList;
 			}
 			else{
 				argumentStrings[i] = this.argumentList[i].stringOfSelf();
@@ -72,7 +75,7 @@ class Expression{
 			case '':
 				return `undefined`;
 			case '0':
-				return `${argumentStrings[0]}`; // no .stringOfSelf() cuz argument is a string
+				return `${argumentStrings.join("")}`; //	Should add some way to make non-index-0 arguments subscript, but this may not be the place for it.
 				break;
 
 			case '-':
@@ -131,10 +134,11 @@ class Expression{
 
 	get full(){
 
+		if(this.operator == '0'){
+			return true;
+		}
+
 		if(this.argumentList.length == Expression.argumentAmount[this.operator]){
-			if(this.operator == '0'){
-				return true;
-			}
 
 			for(let argument of this.argumentList){
 				if(!argument.full){
@@ -172,6 +176,7 @@ class Expression{
 
 		if(this.operator == "0"){
 			this.argumentList.push(predicate);
+			return true; 
 		}
 
 

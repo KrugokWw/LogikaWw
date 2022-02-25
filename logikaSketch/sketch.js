@@ -26,7 +26,7 @@ function setup() {
   mainBranch.activeDepth = 0;
   mainBranch.activeHeight = -1;
   mainBranch.replaceMode = false;
-  
+
 }
 
 function draw() {
@@ -58,6 +58,6 @@ function draw() {
   text(expressionCache.stringOfSelf(), width-170, 620);
 
 
-  text("LogicChecker V002.001; experimental build", 0, 700);
+  text("LogicChecker V002.003; experimental build", 0, 700);
 
 }
