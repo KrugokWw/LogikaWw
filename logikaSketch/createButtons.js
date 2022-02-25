@@ -51,7 +51,7 @@ function createButtons(){
   }
 
   posY = 0
-  posx++;
+  posX++;
   creatingButton = new Clickable();
   creatingButton.label = 'd0'; //direction 0 (up)
   creatingButton.text = '[^]';
