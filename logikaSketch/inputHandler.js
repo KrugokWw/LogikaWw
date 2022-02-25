@@ -67,5 +67,8 @@ function generateInputHandler(mainBranch, expressionCache){
 		else if(typeof(this.label) == "number"){
 			mainBranch.getFromIndex(mainBranch.activeHeight).addSource(this.label);
 		}
+		else if(this.label == "export"){
+			console.log(JSON.stringify(mainBranch));
+		}
 	};
 }

@@ -87,6 +87,18 @@ function createButtons(){
   creatingButton.locate(width - posX*creatingButton.width - 5*posX, 5+posY*(creatingButton.height + 5));
   list[creatingButton.label] = creatingButton;
   posY ++;
+
+  posY = 0;
+  posX ++;
+
+/*
+  creatingButton = new Clickable();
+  creatingButton.label = 'export'; //switch input mode (replace / insert)
+  creatingButton.text = 'exp';
+  creatingButton.resize(30, 30);
+  creatingButton.locate(width - posX*creatingButton.width - 5*posX, 5+posY*(creatingButton.height + 5));
+  list[creatingButton.label] = creatingButton;
+*/
   
 
   for(let i of Object.keys(list)){
