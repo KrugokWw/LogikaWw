@@ -6,7 +6,9 @@ class Expression{
 		'*': 'ʌ',
 		'-': '-',
 		'>': '->',
-		'x': 'Ʇ'
+		'x': 'Ʇ',
+		'A': '∀',
+		'E': 'Ǝ'
 	}
 	static argumentAmount = {
 		'0': 1,
@@ -15,6 +17,8 @@ class Expression{
 		'-': 1,
 		'>': 2,
 		'x': 0,
+		'A': 2,
+		'E': 2,
 		'': -1	// when operator is undefined, expression shouldn't be 'full'
 	}
 
@@ -64,6 +68,9 @@ class Expression{
 			else if(this.operator == '0'){
 				argumentStrings = this.argumentList;
 			}
+			else if("AE".includes(this.operator) && i == 0){
+				argumentStrings[i] = this.argumentList[i];
+			}
 			else{
 				argumentStrings[i] = this.argumentList[i].stringOfSelf();
 			}
@@ -90,6 +97,11 @@ class Expression{
 
 			case 'x':
 				return `${Expression.expressionMap[this.operator]}`;
+				break;
+
+			case 'A':
+			case 'E':
+				return `${Expression.expressionMap[this.operator]}${argumentStrings[0]}${argumentStrings[1]}`;
 				break;
 
 
@@ -140,6 +152,12 @@ class Expression{
 
 		if(this.argumentList.length == Expression.argumentAmount[this.operator]){
 
+			if("AE".includes(this.operator)){
+				if(this.argumentList[1].full){
+					return true;
+				}
+			}
+
 			for(let argument of this.argumentList){
 				if(!argument.full){
 					return false;
@@ -165,6 +183,11 @@ class Expression{
 				return true;
 			}
 
+			if("AE".includes(this.operator) && i == 0){
+				continue;
+			}
+
+
 			if(this.argumentList[i].insertArgument(argument)){
 				return true;
 			}
@@ -174,11 +197,10 @@ class Expression{
 
 	applyPredicate(predicate){
 
-		if(this.operator == "0"){
+		if(this.operator == "0" || "AE".includes(this.operator) && this.argumentList.length == 0){
 			this.argumentList.push(predicate);
 			return true; 
 		}
-
 
 		for(let i = Expression.argumentAmount[this.operator]-1; i >= 0 ; i--){
 
