@@ -86,13 +86,13 @@ function verifyTree(tree, validated, startIndex){
 
 						case 'i-':
 
-							if(validated[element.sources[0]].expression.type == 'Statement'
+							if(validated[element.sources[0]].type == 'Statement'
 							 && validated[element.sources[0]].expression.operator == '-'
 							 && validated[element.sources[0]].expression.argumentList[0].operator == '-'
 							 && validated[element.sources[0]].expression.argumentList[0].hasArgument(element.expression)){
 								break;
 							}
-
+							console.log(`10`);
 							valid = false;
 
 							break;
