@@ -22,7 +22,7 @@ Methodes legend
 
 function verifyTree(tree, validated, startIndex){
 	
-
+//testing mobile app
 	//fill validated with assumptions as they are taken as truth and don't require validation
 	tree.assumptions.forEach(function(assumption, index){
 		validated[startIndex + index] = assumption;
