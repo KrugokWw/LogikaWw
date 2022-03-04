@@ -7,7 +7,7 @@ function createButtons(){
   let inputHandler = generateInputHandler(mainBranch, expressionCache);
   let creatingButton;
   for(let label of Object.keys(Expression.expressionMap)){
-    if(label == 'a'){continue;}
+    if('ao'.includes(label)){continue;}
     creatingButton = new Clickable();
     creatingButton.label = label;
     creatingButton.text = Expression.expressionMap[label];
@@ -26,9 +26,10 @@ function createButtons(){
     posY ++;
 
   }
+  //variables
   for(let i = "a".charCodeAt(0); i < "a".charCodeAt(0)+5; i++){
     creatingButton = new Clickable();
-    creatingButton.label = "p" + String.fromCharCode(i);
+    creatingButton.label = "v" + String.fromCharCode(i);
     creatingButton.text = String.fromCharCode(i);
     creatingButton.resize(30, 30);
     creatingButton.locate(width - posX*creatingButton.width - 5*posX, 5+posY*(creatingButton.height + 5));

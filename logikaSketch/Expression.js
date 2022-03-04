@@ -1,7 +1,8 @@
 class Expression{
 
 	static expressionMap = {
-		'a': 'p.', //assumptions
+		'a': 'p.', 	//assumptions
+		'o': 'op', 	//opetovanje
 		'+': 'v',
 		'*': 'ʌ',
 		'-': '-',
@@ -195,10 +196,10 @@ class Expression{
 		return false;
 	}
 
-	applyPredicate(predicate){
+	applyVariable(variable){
 
 		if(this.operator == "0" || "AE".includes(this.operator) && this.argumentList.length == 0){
-			this.argumentList.push(predicate);
+			this.argumentList.push(variable);
 			return true; 
 		}
 
@@ -208,7 +209,7 @@ class Expression{
 				continue;
 			}
 
-			if(this.argumentList[i].applyPredicate(predicate)){
+			if(this.argumentList[i].applyVariable(variable)){
 				return true;
 			}
 		}

@@ -66,11 +66,11 @@ function generateInputHandler(mainBranch, expressionCache){
 				break;
 			}
 		}
-		else if(this.label[0] == "p"){			//predicate
+		else if(this.label[0] == "v"){			//variable
 			if(expressionCache.equals(new Expression())){
-				mainBranch.getFromIndex(mainBranch.activeHeight).expression.applyPredicate(this.label[1]);
+				mainBranch.getFromIndex(mainBranch.activeHeight).expression.applyVariable(this.label[1]);
 			}
-			expressionCache.applyPredicate(this.label[1]);
+			expressionCache.applyVariable(this.label[1]);
 		}
 		else if(typeof(this.label) == "number"){
 			mainBranch.getFromIndex(mainBranch.activeHeight).addSource(this.label);

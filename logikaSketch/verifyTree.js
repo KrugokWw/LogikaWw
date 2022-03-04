@@ -62,6 +62,14 @@ function verifyTree(tree, validated, startIndex){
 
 				if(valid){
 					switch(element.method){
+						case 'uo':				//opetovanje
+
+							if(element.expression.equals(validated[element.sources[0]].expression)){
+								break;
+							}
+							valid = false;
+
+							break;
 						case 'u-': 				//can't handle branches with multiple assumptions (shouldn't?)
 
 							if(element.expression.operator != '-'){

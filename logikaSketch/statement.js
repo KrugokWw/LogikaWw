@@ -1,6 +1,7 @@
 class Statement{
 
   static sourceAmount = {
+    'uo': 1,
     'ua': 0,
     'ux': 2,
     'u-': 2,
