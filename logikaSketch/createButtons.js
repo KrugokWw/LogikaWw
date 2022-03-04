@@ -39,7 +39,7 @@ function createButtons(){
   }
   for(let i = "x".charCodeAt(0); i < "x".charCodeAt(0)+3; i++){
     creatingButton = new Clickable();
-    creatingButton.label = "p" + String.fromCharCode(i);
+    creatingButton.label = "v" + String.fromCharCode(i);
     creatingButton.text = String.fromCharCode(i);
     creatingButton.resize(30, 30);
     creatingButton.locate(width - posX*creatingButton.width - 5*posX, 5+posY*(creatingButton.height + 5));

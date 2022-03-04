@@ -23,6 +23,7 @@ function generateInputHandler(mainBranch, expressionCache){
 				console.log(expressionCache.copy(), 'finished input of expression, dumped into branch');
 				mainBranch.insertAtIndex(new Statement(expressionCache.copy(), 'ua'), mainBranch.activeHeight, mainBranch.activeDepth, mainBranch.replaceMode);
 				mainBranch.activeHeight += int(!mainBranch.replaceMode);
+				console.log(expressionCache.getReplacedVars('a', 'x').stringOfSelf());	//delete this line after testing!
 				expressionCache.clear();
 			}
 		} else if("ui".includes(this.label[0])){

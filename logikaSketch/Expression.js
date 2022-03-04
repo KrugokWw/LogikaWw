@@ -216,4 +216,38 @@ class Expression{
 		return false;
 	}
 
+	getReplacedVars(Va, Vb){
+		let replaced = this.copy();
+
+
+		if(replaced.operator == '0'){
+			for(let i = 1; i < replaced.argumentList.length; i++){
+				if(replaced.argumentList[i] == Va){
+					replaced.argumentList[i] = Vb;
+				}
+			}
+		} else if('AE'.includes(replaced.operator)){
+			if(replaced.argumentList[0] == Va){
+				replaced.argumentList[0] = Vb;
+			}
+			replaced.argumentList[1] = replaced.argumentList[1].getReplacedVars(Va, Vb);
+		} else {
+			for(let i = 0; i < replaced.argumentList.length; i++){
+				if(replaced.argumentList[i] instanceof Expression){
+					replaced.argumentList[i] = replaced.argumentList[i].getReplacedVars(Va, Vb);
+				}else{
+					console.log('Expression.js getReplacedVars silent error');
+				}
+			}
+
+		}
+
+
+
+
+		return replaced;
+	}
+
+
+
 }
