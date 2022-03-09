@@ -7,6 +7,7 @@ class Expression{
 		'*': 'ʌ',
 		'-': '-',
 		'>': '->',
+		//'=': '<->',
 		'x': 'Ʇ',
 		'A': '∀',
 		'E': 'Ǝ'
@@ -32,10 +33,14 @@ class Expression{
 	}
 
 
-	equals(expression){
+	equals(expression, ignoreVars = false){
 
 		if(this.operator != expression.operator){
 			return false;
+		}
+
+		if(ignoreVars && "AE".includes(this.operator)){
+			return this.argumentList[1].equals(expression.argumentList[1], ignoreVars);
 		}
 
 		if(this.argumentList.length != expression.argumentList.length){
@@ -43,12 +48,17 @@ class Expression{
 		}
 		for(let i = 0; i < this.argumentList.length; i++){
 			if(this.operator == "0"){
+				//if ignoreVars, just check the first argument
+				if(ignoreVars && this.argumentList[0] == expression.argumentList[0]){
+					return true;
+				}
+				//else check all variables
 				if(this.argumentList[i] != expression.argumentList[i]){
 					return false;
 				}
 			}
 			else{
-				if(!this.argumentList[i].equals(expression.argumentList[i])){
+				if(!this.argumentList[i].equals(expression.argumentList[i], ignoreVars)){
 					return false;
 				}
 			}
@@ -93,6 +103,7 @@ class Expression{
 			case '+':
 			case '*':
 			case '>':
+			//case '=':
 				return `(${argumentStrings[0]} ${Expression.expressionMap[this.operator]} ${argumentStrings[1]})`;
 				break;
 
@@ -126,8 +137,6 @@ class Expression{
 		return false;
 
 	}
-
-
 
 	//ALL below is part of an attempt to get partial and steppable input working
 	
@@ -167,8 +176,6 @@ class Expression{
 			return true;
 		}
 		return false;
-		
-
 	}
 
 	//returns true if argument has been found a place in the expression
@@ -246,6 +253,45 @@ class Expression{
 
 
 		return replaced;
+	}
+
+
+	firstDifferentVariable(expression){
+		if(!this.equals(expression, true)){
+			return false;			//expressions different, aborting
+		}
+
+		if(this.operator == '0'){
+			for(let i = 1; i < this.argumentList.length; i++){
+				if(this.argumentList[i] != expression.argumentList[i]){
+					return expression.argumentList[i];
+				}
+			}
+			return true;			//expressions same, aborting
+		}
+		if('AE'.includes(this.operator)){
+			console.log("this shouldn't ever be logged (I think), fix in firstDifferentVariable in Expression.js")
+			//I dont think it should be allowed to find diferrences in quantificators as they shouldn't change
+			//return false; //?????
+		}
+
+
+		for(let i = 0; i < Expression.argumentAmount[this.operator]; i++){
+			let result = this.argumentList[i].firstDifferentVariable(expression.argumentList[i]);
+			if(result == true){
+				if(this.argumentList.length == i){
+					return true;	//expressions same, aborting
+				}
+				continue;
+			} else {
+				return result;
+			}
+
+
+		}
+
+
+		return true;
 	}
 
 

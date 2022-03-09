@@ -19,11 +19,12 @@ function generateInputHandler(mainBranch, expressionCache){
 			
 			//mainBranch.insertAtIndex(new Statement(expressionCache.copy(), 'ua'), mainBranch.activeHeight, mainBranch.activeDepth, true); //highly experimental and may caouse bugs
 
+			//dump cache into branch
 			if(expressionCache.full){
-				console.log(expressionCache.copy(), 'finished input of expression, dumped into branch');
+				console.log(expressionCache.copy().stringOfSelf(), 'finished input of expression, dumped into branch');
 				mainBranch.insertAtIndex(new Statement(expressionCache.copy(), 'ua'), mainBranch.activeHeight, mainBranch.activeDepth, mainBranch.replaceMode);
 				mainBranch.activeHeight += int(!mainBranch.replaceMode);
-				console.log(expressionCache.getReplacedVars('a', 'x').stringOfSelf());	//delete this line after testing!
+				console.log(expressionCache.firstDifferentVariable(mainBranch.getFromIndex(0).expression));//debugging only
 				expressionCache.clear();
 			}
 		} else if("ui".includes(this.label[0])){
@@ -63,7 +64,7 @@ function generateInputHandler(mainBranch, expressionCache){
 				mainBranch.activeDepth += 1;
 				break;
 				default:
-				console.log('nto good, add code for that direction');
+				console.log('not good, add code for that direction');
 				break;
 			}
 		}

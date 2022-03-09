@@ -12,6 +12,8 @@ class Statement{
     'i*': 1,
     'u>': 2,
     'i>': 2,
+    //'u=': 2,
+    //'i=': 2,
   }
 
   type = "Statement";

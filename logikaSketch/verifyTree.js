@@ -100,7 +100,6 @@ function verifyTree(tree, validated, startIndex){
 							 && validated[element.sources[0]].expression.argumentList[0].hasArgument(element.expression)){
 								break;
 							}
-							console.log(`10`);
 							valid = false;
 
 							break;
