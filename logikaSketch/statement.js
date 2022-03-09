@@ -1,8 +1,8 @@
 class Statement{
 
   static sourceAmount = {
-    'uo': 1,
     'ua': 0,
+    'uo': 1,
     'ux': 2,
     'u-': 2,
     'i-': 1,
@@ -14,6 +14,7 @@ class Statement{
     'i>': 2,
     //'u=': 2,
     //'i=': 2,
+    'iE': 1
   }
 
   type = "Statement";
