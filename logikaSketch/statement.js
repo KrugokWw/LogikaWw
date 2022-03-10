@@ -14,7 +14,7 @@ class Statement{
     'i>': 2,
     //'u=': 2,
     //'i=': 2,
-    'iE': 1
+    'iA': 1
   }
 
   type = "Statement";

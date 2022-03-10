@@ -221,7 +221,7 @@ function verifyTree(tree, validated, startIndex){
 							break;
 
 						//untested code, first oreder of buisness
-						case 'iE':
+						case 'iA':
 							let x = validated[element.sources[0]].expression.argumentList[0];	//the variable in the expression
 							let diff = validated[element.sources[0]].expression.argumentList[1].firstDifferentVariable(element.expression); //the variable that replaced x
 							
