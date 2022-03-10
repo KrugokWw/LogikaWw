@@ -222,18 +222,42 @@ function verifyTree(tree, validated, startIndex){
 
 						//untested code, first oreder of buisness
 						case 'iA':
-							let x = validated[element.sources[0]].expression.argumentList[0];	//the variable in the expression
-							let diff = validated[element.sources[0]].expression.argumentList[1].firstDifferentVariable(element.expression); //the variable that replaced x
+							let varxA = validated[element.sources[0]].expression.argumentList[0];	//the variable in the expression
+							let diffA = validated[element.sources[0]].expression.argumentList[1].firstDifferentVariable(element.expression); //the variable that replaced x
 							
-							if(diff == false){
+							if(diffA == false){
 								valid = false;
 								break;
 							}
-							if(diff == true){
+							if(diffA == true){
+								valid = false;
 								console.log('Reused variable name but no good way to prevent you to do so. Stop it.');
 								break;
 							}
-							if(validated[element.sources[0]].expression.argumentList[1].getReplacedVars(x, diff).equals(element.expression)){
+							if(validated[element.sources[0]].expression.argumentList[1].getReplacedVars(varxA, diffA).equals(element.expression)){
+								break;
+							}
+
+							valid = false;
+
+							break;
+
+						case 'uE':
+							let varxE = element.expression.argumentList[0];	//the variable in the quantificator
+							let diffE = element.expression.argumentList[1].firstDifferentVariable(validated[element.sources[0]].expression); //the variable that gets repolaced with x
+							
+							console.log(varxE, diffE);
+
+							if(diffE == false){
+								valid = false;
+								break;
+							}
+							if(diffE == true){
+								valid = false;
+								console.log('Something\'s wrong, I can feel it. Stop it.');
+								break;
+							}
+							if(validated[element.sources[0]].expression.getReplacedVars(diffE, varxE).equals(element.expression.argumentList[1])){
 								break;
 							}
 
@@ -252,7 +276,7 @@ function verifyTree(tree, validated, startIndex){
 					console.log(`${element.method} correct at line ${startIndex + index}`);
 					element.valid = true;
 				} else {
-					console.log(`${element.method} likely incorrect at line ${startIndex + index}`);
+					console.log(`${element.method} incorrect at line ${startIndex + index}`);
 					element.valid = false;
 				}
 
