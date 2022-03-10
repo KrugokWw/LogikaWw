@@ -2,6 +2,11 @@ const http = require('http');
 const path = require('path');
 const fs = require('fs');
 
+
+//added later for timestamped console messages
+require('log-timestamp');
+
+
 function handleRequest(req, res) {
   // What did we request?
   let pathname = req.url;
