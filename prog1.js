@@ -18,9 +18,11 @@ function handleRequest(req, res) {
     console.log('You done did it');
   }
 
-  console.log(req.headers['x-forwarded-for'] ||
-     req.socket.remoteAddress ||
-     null);
+  if(pathname == '/index.html'){
+    console.log(req.headers['x-forwarded-for'] ||
+       req.socket.remoteAddress ||
+       null);
+  }
 
 
   // Ok what's our file extension
