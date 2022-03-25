@@ -70,7 +70,7 @@ function generateInputHandler(mainBranch, expressionCache){
 		else if(this.label[0] == "v"){			//variable
 			if(expressionCache.empty){
 				if(mainBranch.getFromIndex(mainBranch.activeHeight).expression.empty){
-					mainBranch.insertAtIndex(new Branch(this.label[1]), mainBranch.activeHeight-1, false);	//really should refactor this
+					mainBranch.insertAtIndex(new Branch(this.label[1]), mainBranch.activeHeight-1, mainBranch.activeDepth);	//really should refactor this
 					mainBranch.activeDepth += 1;
 				}
 				else{
