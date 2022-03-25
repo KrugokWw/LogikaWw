@@ -314,19 +314,3 @@ function verifyTree(tree, validated, startIndex){
 
 }
 
-
-
-
-/*
-for (let variable in object) {
-  // code to be executed
-}
-
-Object.keys(obj).length
-
-
-
-delete properties with delete object.property
-
-
-*/

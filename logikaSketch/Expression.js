@@ -56,8 +56,7 @@ class Expression{
 				if(this.argumentList[i] != expression.argumentList[i]){
 					return false;
 				}
-			}
-			else{
+			} else {
 				if(!this.argumentList[i].equals(expression.argumentList[i], ignoreVars)){
 					return false;
 				}
@@ -142,11 +141,19 @@ class Expression{
 	
 	copy(){
 		return new Expression(this.operator, ...this.argumentList);
+		//
 	}
 
 	clear(){
 		this.operator = '';
 		this.argumentList = [];
+	}
+
+	get empty(){
+		if(this.equals(new Expression())){
+			return true;
+		}
+		return false;
 	}
 
 	set(expression){

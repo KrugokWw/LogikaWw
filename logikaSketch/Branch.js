@@ -1,8 +1,12 @@
 class Branch{
 	type = "Branch";
-	
+		
+
 	constructor(...assumptions){
+
 		this.assumptions = assumptions;
+
+
 		this.content = [];
 		this.needsRecalculation = true;
 	}
@@ -20,8 +24,19 @@ class Branch{
 			}
 		}
 
+
 		this.needsRecalculation = false;
 
+	}
+
+	/*
+	get hasVar(){
+		return !(this.assumedVar == '');
+	}
+	*/
+
+	get hasAssumedVar(){
+		return typeof this.assumptions[0] == "string";
 	}
 
 	getHeight(){
@@ -52,7 +67,7 @@ class Branch{
 	getFromIndex(index){
 		if(index < 0){
 			console.log("you did something wrong. Don't.");
-			return new Statement(new Expression(''), '');
+			return new Statement(new Expression(), '');
 		}
 
 		if(index < this.assumptions.length){
@@ -79,8 +94,50 @@ class Branch{
 			}
 		}
 
+		return new Statement(new Expression(), '');
+	}
+
+	/*
+	getBranchFromIndex(index, depth){
+		if(index < 0){
+			console.log("You did something wrong. Don't.");
+			return new Branch(new Statement(new Expression(''), ''));
+		}
+
+		if(index < this.assumptions.length){
+			console.log("You did something wrong. Don't.");
+			return new Branch(new Statement(new Expression(''), ''));
+		}
+
+		let count = this.assumptions.length;
+
+		for(let element of this.content){
+			switch(element.type){
+				case 'Statement':
+					if(count == index){
+						console.log("You did something wrong. Don't.");
+						return new Branch(new Statement(new Expression(''), ''));
+					}
+					count += 1;
+					break;
+
+				case 'Branch':
+
+					if(count == index){
+						return element;
+					}
+
+					if(count + element.getHeight() > index){
+						return element.getFromIndex(index - count);
+					}
+					count += element.getHeight();
+					break;
+			}
+		}
+
 		return false;
 	}
+	*/
 
 	insertAtIndex(elementToInsert, index, depth = 0, replace = false){
 
@@ -121,16 +178,23 @@ class Branch{
 								return true;
 							}
 						}
-						element.insertAtIndex(elementToInsert, index - count, depth-1, replace);
-						return true;
+						if(element.insertAtIndex(elementToInsert, index - count, depth-1, replace) == true){
+							return true;
+						}
 					}
 					count += element.getHeight();
 					break;
 			}
 			i++;
 		}
-		
 
+		
+		if(depth == 0){
+			console.log(elementToInsert);
+			this.content.push(elementToInsert);
+		}
+		return true;
+		
 	}
 
 	getDepthOfIndex(index){
@@ -161,6 +225,40 @@ class Branch{
 
 		return false;
 	
+	}
+
+	assumedVarsAt(index){
+
+		let assumedVars = []
+
+		if(this.hasAssumedVar){
+			assumedVars.push(this.assumptions[0]);
+		}
+
+		if(index < this.assumptions.length){
+			return assumedVars;
+			
+		}
+
+		let count = this.assumptions.length;
+
+		for(let element of this.content){
+			switch(element.type){
+				case 'Statement':
+					count += 1;
+					break;
+
+				case 'Branch':
+					if(count + element.getHeight() > index){
+						assumedVars.push(...element.assumedVarsAt(index - count));
+						return assumedVars;
+					}
+					count += element.getHeight();
+					break;
+			}
+		}
+
+		return assumedVars;
 	}
 
 	branchOutFromIndex(index){
@@ -224,23 +322,34 @@ class Branch{
 			translate(1.2, 0);
 		}
 
-
-
 		push();
 
-		line(0, 0, 0, this.getHeight()-0.3);
-		translate(0.2, 0);
+		line(this.hasAssumedVar ? .7 : 0, 0, this.hasAssumedVar ? .7 : 0, this.getHeight() - .15);
+
 
 		fill(0, 150, 0); //assumptionns always green
-		for(const element of this.assumptions){
-			textAlign(LEFT, TOP);
-			text(`${element.expression.stringOfSelf()}`, 0, 0);
-			textAlign(RIGHT, TOP);
-			text(`${element.stringOfMetadata()}`, 12, 0);
-			translate(0, 1);
-		}
 
-		line(-0.2, -0.15, 0.8, -0.15);
+		if(this.hasAssumedVar){
+			textAlign(LEFT, TOP);
+			text(`${this.assumptions[0]}`, 0, 0);
+			translate(1, 1); //potentially deleteable
+		}
+		else{
+			if(this.assumptions.length != 0){
+				translate(0.2, 0);
+				textAlign(LEFT, TOP);
+				text(`${this.assumptions[0].expression.stringOfSelf()}`, 0, 0);
+				textAlign(RIGHT, TOP);
+				text(`${this.assumptions[0].stringOfMetadata()}`, 12, 0);
+				translate(0, 1);
+				line(-.2, -0.15, .8, -0.15);
+			}
+		}
+		translate(-0.2, 0);
+
+		//line(this.hasAssumedVar ? 1 : 0, -1, 0, this.getHeight() - .15 - 1);
+
+		translate(0.2, 0);
 
 		for(const element of this.content){
 

@@ -1,3 +1,9 @@
+/***************************************************************
+*                                                              *
+*     Main node.js server program, run with  node prog1.js     *
+*                                                              *
+***************************************************************/
+
 const http = require('http');
 const path = require('path');
 const fs = require('fs');
@@ -18,6 +24,9 @@ function handleRequest(req, res) {
     console.log('You done did it');
   }
 
+
+
+  //This is so I can read console logs without the spam, there still is the problem of 'japaneese' ips spamming the server with requests that I'm choosing to ignore
   if(pathname == '/index.html'){
     console.log(req.headers['x-forwarded-for'] ||
        req.socket.remoteAddress ||
