@@ -51,7 +51,7 @@ function verifyTree(tree, validated, startIndex){
 			/**/
 
 				// generic check if sources are valid
-				if(!(['u-', 'u>', 'i+'].includes(element.method))){   	//exception for those methods that dont adhere to this rule (often need trees as sources)
+				if(!(['u-', 'u>', 'i+', 'uA', 'iE'].includes(element.method))){   	//exception for those methods that dont adhere to this rule (often need trees as sources)
 					for(let elementSource of element.sources){
 						if(!(elementSource in validated)){
 							valid = false;
@@ -220,7 +220,26 @@ function verifyTree(tree, validated, startIndex){
 							}
 							break;
 
-						//untested code, first oreder of buisness
+						//new untested code
+						case 'uA':
+
+							let subStatement = validated[element.sources[0]].getFromIndex(element.sources[1]-element.sources[0]);
+
+							console.log(validated[element.sources[0]].type == 'Branch')
+							console.log(element.expression.operator == 'A')
+							console.log(subStatement.expression.equals(element.expression.argumentList[1], true))
+							console.log(element.expression.argumentList[1].getReplacedVars(element.expression.argumentList[0], element.expression.argumentList[1].firstDifferentVariable(subStatement.expression)).equals(subStatement.expression))
+								
+							if(validated[element.sources[0]].type == 'Branch'
+								&& element.expression.operator == 'A'
+								&& subStatement.expression.equals(element.expression.argumentList[1], true)
+								&& element.expression.argumentList[1].getReplacedVars(element.expression.argumentList[0], element.expression.argumentList[1].firstDifferentVariable(subStatement.expression)).equals(subStatement.expression)){
+								break;
+							}
+							valid = false;
+
+							break;
+
 						case 'iA':
 							let varxA = validated[element.sources[0]].expression.argumentList[0];	//the variable in the expression
 							let diffA = validated[element.sources[0]].expression.argumentList[1].firstDifferentVariable(element.expression); //the variable that replaced x
