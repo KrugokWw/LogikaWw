@@ -230,6 +230,63 @@ class Expression{
 		return false;
 	}
 
+	//needs optimization, it returns the same var multiple times in the list. Idk if it should, but for my currnet uses it is unnecessairy. Doesent cause any problems tho
+	get usedVars(){
+		let varList = [];
+
+		if(this.operator == "0"){
+			varList.push(...this.argumentList.slice(1, this.argumentList.length+1));
+
+		} else if("AE".includes(this.operator)){
+			varList.push(this.argumentList[0]);
+			varList.push(...this.argumentList[1].usedVars);
+			
+		}else{
+			for(let i = Expression.argumentAmount[this.operator]-1; i >= 0 ; i--){
+
+				if(i >= this.argumentList.length){
+					continue;
+				}
+
+				varList.push(...this.argumentList[i].usedVars);
+			}
+		}
+		return varList;
+
+	}
+
+
+	containsVar(Va){
+		if(this.operator == "0"){
+			if(this.argumentList.slice(1, this.argumentList.length+1).includes(Va)){
+				return true;
+			}
+			return false;
+		} else if("AE".includes(this.operator)){
+			if(this.argumentList[0] == Va){
+				return true;
+			}
+			for(let i = 1; i < this.argumentList.length; i++){//unnecessairy, i will always just be 1, never incremented
+				if(this.argumentList[i].containsVar(Va)){
+					return true;
+				}
+			}
+			return false;
+		}
+
+		for(let i = Expression.argumentAmount[this.operator]-1; i >= 0 ; i--){
+
+			if(i >= this.argumentList.length){
+				continue;
+			}
+
+			if(this.argumentList[i].containsVar(Va)){
+				return true;
+			}
+		}
+		return false;
+	}
+
 	getReplacedVars(Va, Vb){
 		let replaced = this.copy();
 
@@ -262,7 +319,7 @@ class Expression{
 		return replaced;
 	}
 
-
+	//returns the variable form the expression in the argument
 	firstDifferentVariable(expression){
 		if(!this.equals(expression, true)){
 			return false;			//expressions different, aborting

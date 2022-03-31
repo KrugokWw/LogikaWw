@@ -5,6 +5,26 @@
 // http://localhost:8001/logikaSketch/index.html
 
 
+/* 
+Gracin - wise words
+
+a kako je umjesto dine mogao stajati bilo tko
+
+dino se ne javlja u pretpostavkama
+
+
+
+
+
+Egz 
+  ante je nova konstanta (ne uu pretpostavkama)
+  u sudu koji izvodimo se ne javlja ante
+*/
+
+
+
+
+
 
 
 let mainBranch;
@@ -60,6 +80,6 @@ function draw() {
   text(expressionCache.stringOfSelf(), width-170, 620);
 
 
-  text("LogicChecker V002.017; experimental build", 0, 700);
+  text("LogicChecker V002.018; experimental build", 0, 700);
 
 }

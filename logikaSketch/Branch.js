@@ -35,9 +35,11 @@ class Branch{
 	}
 	*/
 
+	/*
 	get hasAssumedVar(){
 		return typeof this.assumptions[0] == "string";
 	}
+	*/
 
 	getHeight(){
 		/*
@@ -229,13 +231,14 @@ class Branch{
 
 	assumedVarsAt(index){
 
-		let assumedVars = []
-
+		let assumedVars = this.assumptions[0].expression.usedVars;
+		/*
 		if(this.hasAssumedVar){
 			assumedVars.push(this.assumptions[0]);
 		}
-
+		*/
 		if(index < this.assumptions.length){
+			console.log('weird assumedVarsAt requast for index of assumption')
 			return assumedVars;
 			
 		}
@@ -324,27 +327,21 @@ class Branch{
 
 		push();
 
-		line(this.hasAssumedVar ? .7 : 0, 0, this.hasAssumedVar ? .7 : 0, this.getHeight() - .15);
+		line(0, 0, 0, this.getHeight() - .15);
 
 
 		fill(0, 150, 0); //assumptionns always green
-
-		if(this.hasAssumedVar){
+		
+		if(this.assumptions.length != 0){
+			translate(0.2, 0);
 			textAlign(LEFT, TOP);
-			text(`${this.assumptions[0]}`, 0, 0);
-			translate(1, 1); //potentially deleteable
+			text(`${this.assumptions[0].expression.stringOfSelf()}`, 0, 0);
+			textAlign(RIGHT, TOP);
+			text(`${this.assumptions[0].stringOfMetadata()}`, 12, 0);
+			translate(0, 1);
+			line(-.2, -0.15, .8, -0.15);
 		}
-		else{
-			if(this.assumptions.length != 0){
-				translate(0.2, 0);
-				textAlign(LEFT, TOP);
-				text(`${this.assumptions[0].expression.stringOfSelf()}`, 0, 0);
-				textAlign(RIGHT, TOP);
-				text(`${this.assumptions[0].stringOfMetadata()}`, 12, 0);
-				translate(0, 1);
-				line(-.2, -0.15, .8, -0.15);
-			}
-		}
+
 		translate(-0.2, 0);
 
 		//line(this.hasAssumedVar ? 1 : 0, -1, 0, this.getHeight() - .15 - 1);
