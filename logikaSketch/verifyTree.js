@@ -303,7 +303,6 @@ function verifyTree(tree, validated, startIndex){
 								if(!(subject instanceof Statement)){continue;}
 								if(subject.method != 'ua'){continue;}
 								if(subject.expression.containsVar(tempVar)){
-									console.log('3!!!')
 									valid = false;
 									break;
 								}
