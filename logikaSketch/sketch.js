@@ -11,7 +11,7 @@
 
 
 let mainBranch;
-let expressionCache = new Expression('');
+let expressionCache = new Expression(' ');
 
 let buttonList = {};
 

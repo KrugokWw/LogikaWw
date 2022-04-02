@@ -31,7 +31,7 @@ class Branch{
 
 	/*
 	get hasVar(){
-		return !(this.assumedVar == '');
+		return !(this.assumedVar == ' ');
 	}
 	*/
 
@@ -69,7 +69,7 @@ class Branch{
 	getFromIndex(index){
 		if(index < 0){
 			console.log("you did something wrong. Don't.");
-			return new Statement(new Expression(), '');
+			return new Statement(new Expression(), ' ');
 		}
 
 		if(index < this.assumptions.length){
@@ -96,19 +96,19 @@ class Branch{
 			}
 		}
 
-		return new Statement(new Expression(), '');
+		return new Statement(new Expression(), ' ');
 	}
 
 	/*
 	getBranchFromIndex(index, depth){
 		if(index < 0){
 			console.log("You did something wrong. Don't.");
-			return new Branch(new Statement(new Expression(''), ''));
+			return new Branch(new Statement(new Expression(' '), ' '));
 		}
 
 		if(index < this.assumptions.length){
 			console.log("You did something wrong. Don't.");
-			return new Branch(new Statement(new Expression(''), ''));
+			return new Branch(new Statement(new Expression(' '), ' '));
 		}
 
 		let count = this.assumptions.length;
@@ -118,7 +118,7 @@ class Branch{
 				case 'Statement':
 					if(count == index){
 						console.log("You did something wrong. Don't.");
-						return new Branch(new Statement(new Expression(''), ''));
+						return new Branch(new Statement(new Expression(' '), ' '));
 					}
 					count += 1;
 					break;

@@ -2,7 +2,7 @@ function generateInputHandler(mainBranch, expressionCache){
 	return function(){
 		if(this.label[0] in Expression.argumentAmount){
 
-			if(expressionCache.operator == ''){
+			if(expressionCache.operator == ' '){
 				if(this.label[0] != '0'){
 					expressionCache.set(new Expression(this.label[0]));
 				} else{

@@ -21,13 +21,13 @@ class Expression{
 		'x': 0,
 		'A': 2,
 		'E': 2,
-		'': -1	// when operator is undefined, expression shouldn't be 'full'
+		' ': -1	// when operator is undefined, expression shouldn't be 'full'
 	}
 
 
 	type = 'Expression';
 
-	constructor(operator = '', ...argumentList){
+	constructor(operator = ' ', ...argumentList){
 		this.operator = operator;
 		this.argumentList = argumentList;
 	}
@@ -39,7 +39,11 @@ class Expression{
 			return false;
 		}
 
-		if(ignoreVars && "AE".includes(this.operator)){
+		if("AE".includes(this.operator)){
+			if(!ignoreVars && this.argumentList[0] != expression.argumentList[0]){
+				return false;
+			}
+			
 			return this.argumentList[1].equals(expression.argumentList[1], ignoreVars);
 		}
 
@@ -89,7 +93,7 @@ class Expression{
 
 
 		switch(this.operator){
-			case '':
+			case ' ':
 				return `undefined`;
 			case '0':
 				return `${argumentStrings.join("")}`; //	Should add some way to make non-index-0 arguments subscript, but this may not be the place for it.
@@ -145,7 +149,7 @@ class Expression{
 	}
 
 	clear(){
-		this.operator = '';
+		this.operator = ' ';
 		this.argumentList = [];
 	}
 
