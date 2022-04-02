@@ -220,7 +220,7 @@ function verifyTree(tree, validated, startIndex){
 							}
 							break;
 
-						case 'uA':
+						case 'uA':{
 
 							let tempVar = element.expression.argumentList[1].firstDifferentVariable(validated[element.sources[0]].expression);
 
@@ -241,6 +241,7 @@ function verifyTree(tree, validated, startIndex){
 							valid = false;
 
 							break;
+						}
 
 						case 'iA':
 							let varxA = validated[element.sources[0]].expression.argumentList[0];	//the variable in the expression
@@ -286,13 +287,40 @@ function verifyTree(tree, validated, startIndex){
 
 							break;
 
-						//DOES NOT WORK YET!! need to look into this deeper, I think the rule on http://kgracin.com/logika/ndPravilaTeoremi.pdf is flawed
-						case 'iE':
+						case 'iE':{
 
-							if(validated[element.sources[0]].type == 'Branch'
-								&& element.expression.operator == 'A'
-								&& subStatement.expression.equals(element.expression.argumentList[1], true)
-								&& element.expression.argumentList[1].getReplacedVars(element.expression.argumentList[0], element.expression.argumentList[1].firstDifferentVariable(subStatement.expression)).equals(subStatement.expression)){
+							console.log(validated[element.sources[0]].type != 'Statement')
+							console.log(validated[element.sources[1]].type != 'Branch')
+							console.log(validated[element.sources[1]].getDepthOfIndex(element.sources[2] - element.sources[1]) != 0)
+							
+
+							if(validated[element.sources[0]].type != 'Statement'
+								|| validated[element.sources[1]].type != 'Branch'
+								|| validated[element.sources[1]].getDepthOfIndex(element.sources[2] - element.sources[1]) != 0){
+								valid = false;
+								break;
+							}
+
+							let tempVar = validated[element.sources[0]].expression.argumentList[1].firstDifferentVariable(validated[element.sources[1]].assumptions[0].expression);
+
+							for(const index in validated){
+								const subject = validated[index];
+								if(!(subject instanceof Statement)){continue;}
+								if(subject.method != 'ua'){continue;}
+								if(subject.expression.containsVar(tempVar)){
+									console.log('3!!!')
+									valid = false;
+									break;
+								}
+							}
+							
+							console.log(validated[element.sources[0]].expression.argumentList[1].getReplacedVars(validated[element.sources[0]].expression.argumentList[0], tempVar).equals(validated[element.sources[1]].assumptions[0].expression))
+							console.log(validated[element.sources[1]].getFromIndex(element.sources[2] - element.sources[1]).expression.equals(element.expression))
+							console.log(!element.expression.containsVar(tempVar))
+
+							if(validated[element.sources[0]].expression.argumentList[1].getReplacedVars(validated[element.sources[0]].expression.argumentList[0], tempVar).equals(validated[element.sources[1]].assumptions[0].expression)
+								&& validated[element.sources[1]].getFromIndex(element.sources[2] - element.sources[1]).expression.equals(element.expression)
+								&& !element.expression.containsVar(tempVar)){
 								break;
 							}
 
@@ -300,6 +328,7 @@ function verifyTree(tree, validated, startIndex){
 							valid = false;
 
 							break;
+						}
 
 						default:
 							valid = false;
@@ -350,3 +379,20 @@ function verifyTree(tree, validated, startIndex){
 
 }
 
+
+
+/* 
+Gracin - wise words
+
+a kako je umjesto dine mogao stajati bilo tko
+
+dino se ne javlja u pretpostavkama
+
+
+
+
+
+Egz 
+  ante je nova konstanta (ne uu pretpostavkama)
+  u sudu koji izvodimo se ne javlja ante
+*/
