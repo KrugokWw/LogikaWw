@@ -289,11 +289,6 @@ function verifyTree(tree, validated, startIndex){
 
 						case 'iE':{
 
-							console.log(validated[element.sources[0]].type != 'Statement')
-							console.log(validated[element.sources[1]].type != 'Branch')
-							console.log(validated[element.sources[1]].getDepthOfIndex(element.sources[2] - element.sources[1]) != 0)
-							
-
 							if(validated[element.sources[0]].type != 'Statement'
 								|| validated[element.sources[1]].type != 'Branch'
 								|| validated[element.sources[1]].getDepthOfIndex(element.sources[2] - element.sources[1]) != 0){
@@ -314,10 +309,6 @@ function verifyTree(tree, validated, startIndex){
 								}
 							}
 							
-							console.log(validated[element.sources[0]].expression.argumentList[1].getReplacedVars(validated[element.sources[0]].expression.argumentList[0], tempVar).equals(validated[element.sources[1]].assumptions[0].expression))
-							console.log(validated[element.sources[1]].getFromIndex(element.sources[2] - element.sources[1]).expression.equals(element.expression))
-							console.log(!element.expression.containsVar(tempVar))
-
 							if(validated[element.sources[0]].expression.argumentList[1].getReplacedVars(validated[element.sources[0]].expression.argumentList[0], tempVar).equals(validated[element.sources[1]].assumptions[0].expression)
 								&& validated[element.sources[1]].getFromIndex(element.sources[2] - element.sources[1]).expression.equals(element.expression)
 								&& !element.expression.containsVar(tempVar)){
