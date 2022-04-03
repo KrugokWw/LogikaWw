@@ -268,8 +268,6 @@ function verifyTree(tree, validated, startIndex){
 							let varxE = element.expression.argumentList[0];	//the variable in the quantificator
 							let diffE = element.expression.argumentList[1].firstDifferentVariable(validated[element.sources[0]].expression); //the variable that gets repolaced with x
 							
-							console.log(varxE, diffE);
-
 							if(diffE == false){
 								valid = false;
 								break;

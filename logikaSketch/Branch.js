@@ -303,12 +303,16 @@ class Branch{
 
 	//if calling with active pointer, make sure that this.actveHeight and this.replaceMode are defined
 	displaySelf(numbered = false, topLevelFeatures = false){
+		
+
 		textSize(0.8);
 		strokeWeight(0.1);
 
 		textAlign(RIGHT, TOP);
 
 		if(topLevelFeatures){
+			push();	//to match the pop at the end for citing sources
+
 			text('>', 0.5, this.activeHeight);
 			text('v', 1.4 + this.activeDepth*0.2, -1);
 		
@@ -327,25 +331,19 @@ class Branch{
 
 		push();
 
-		line(0, 0, 0, this.getHeight() - .15);
-
+		line(0, 0, 0, this.getHeight() - .15); //long vertical line
 
 		fill(0, 150, 0); //assumptionns always green
-		
 		if(this.assumptions.length != 0){
 			translate(0.2, 0);
 			textAlign(LEFT, TOP);
 			text(`${this.assumptions[0].expression.stringOfSelf()}`, 0, 0);
-			textAlign(RIGHT, TOP);
-			text(`${this.assumptions[0].stringOfMetadata()}`, 12, 0);
 			translate(0, 1);
 			line(-.2, -0.15, .8, -0.15);
 		}
 
 		translate(-0.2, 0);
-
 		//line(this.hasAssumedVar ? 1 : 0, -1, 0, this.getHeight() - .15 - 1);
-
 		translate(0.2, 0);
 
 		for(const element of this.content){
@@ -359,8 +357,6 @@ class Branch{
 				}
 				textAlign(LEFT, TOP);
 				text(`${element.expression.stringOfSelf()}`, 0, 0);
-				textAlign(RIGHT, TOP);
-				text(`${element.stringOfMetadata()}`, 12, 0);
 				translate(0, 1);
 			} else if(element.type == 'Branch'){
 				element.displaySelf();
@@ -371,7 +367,42 @@ class Branch{
 
 		translate(0, this.getHeight());
 
+		//cite sources
+		if(!topLevelFeatures){return;}
+
+		pop();
+
+
+		fill(0, 0, 0);
+		for(let i = 0; i < this.getHeight(); i++){
+			let element = this.getFromIndex(i);
+			textAlign(RIGHT, TOP);
+			text(`${element.stringOfMetadata()}`, 12, 0);
+			translate(0, 1);
+		}
+
+
+
+
+
 	}
 
 
 }
+
+
+
+/*
+clipboard
+
+
+			textAlign(RIGHT, TOP);
+			text(`${this.assumptions[0].stringOfMetadata()}`, 12, 0);
+
+
+				textAlign(RIGHT, TOP);
+				text(`${element.stringOfMetadata()}`, 12, 0);
+
+
+
+*/

@@ -40,7 +40,7 @@ function draw() {
     buttonList[buttonKey].draw();
   }
 
-  if(frameCount % 40 == 0){
+  if(frameCount % 30 == 0){
     //verifyTree(mainBranch, {}, 1);
     console.log('------------');
     verifyTree(mainBranch, {}, 1);
@@ -63,6 +63,6 @@ function draw() {
   text(expressionCache.stringOfSelf(), width-170, 620);
 
 
-  text("LogicChecker V002.021; experimental build", 0, 700);
+  text("LogicChecker V002.023; experimental build", 0, 700);
 
 }
