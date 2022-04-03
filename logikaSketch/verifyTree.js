@@ -181,7 +181,8 @@ function verifyTree(tree, validated, startIndex){
 							break;
 
 						case 'i*':
-							if(validated[element.sources[0]].expression.hasArgument(element.expression)){
+							if(validated[element.sources[0]].expression.operator == '*'
+								&& validated[element.sources[0]].expression.hasArgument(element.expression)){
 								break;
 							}
 
@@ -288,6 +289,7 @@ function verifyTree(tree, validated, startIndex){
 						case 'iE':{
 
 							if(validated[element.sources[0]].type != 'Statement'
+								|| validated[element.sources[0]].expression.operator != 'E'
 								|| validated[element.sources[1]].type != 'Branch'
 								|| validated[element.sources[1]].getDepthOfIndex(element.sources[2] - element.sources[1]) != 0){
 								valid = false;
