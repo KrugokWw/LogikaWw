@@ -301,6 +301,49 @@ class Branch{
 
 	}
 
+	cut(index){
+
+		if(index < this.assumptions.length){
+			console.log('this part of the code should never be reached, fix it');
+			return false;
+		}
+
+		let count = this.assumptions.length;
+
+		for(let element of this.content){
+			switch(element.type){
+				case 'Statement':
+					if(count == index){
+						this.content.splice(this.content.indexOf(element), 1);
+						return true;
+					}
+					count += 1;
+					break;
+
+				case 'Branch':
+					if(count == index){
+						this.content.splice(this.content.indexOf(element), 1);
+						return true;
+					}
+					if(count + element.getHeight() > index){
+						element.cut(index - count);
+						return true;
+						break;
+					}
+					count += element.getHeight();
+					break;
+			}
+		}
+
+
+
+
+
+		return false;
+	}
+
+
+
 	//if calling with active pointer, make sure that this.actveHeight and this.replaceMode are defined
 	displaySelf(numbered = false, topLevelFeatures = false){
 		

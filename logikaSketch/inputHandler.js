@@ -45,6 +45,9 @@ function generateInputHandler(mainBranch){
 	       	this.color = color(255*int(!mainBranch.replaceMode), 255*int(!mainBranch.replaceMode), 255*int(mainBranch.replaceMode));
       		
 		}
+		else if(this.label == 'del'){		//delete
+			mainBranch.cut(mainBranch.activeHeight);
+		}
 		else if(this.label[0] == 'd'){		//d-pad
 			switch(this.label[1]){
 				case '0': 		//up

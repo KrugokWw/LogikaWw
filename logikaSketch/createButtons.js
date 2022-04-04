@@ -77,6 +77,8 @@ function createButtons(){
   posY ++;
   list['mode'] = buttonFromParams('mode', 'mode', defaultButtonWidth, ...coordsFromPos(posX, posY));
   posY ++;
+  list['del'] = buttonFromParams('del', 'del', defaultButtonWidth, ...coordsFromPos(posX, posY));
+  posY ++;
 
   posY = 0;
   posX ++;
