@@ -1,5 +1,7 @@
 function generateInputHandler(mainBranch, expressionCache){
 	return function(){
+		//console.log(mainBranch.activeHeight)
+		//expressionCache = mainBranch.getFromIndex(mainBranch.activeHeight + int(!mainBranch.replaceMode)).expression;
 		if(this.label[0] in Expression.argumentAmount){
 
 			if(expressionCache.operator == ' '){

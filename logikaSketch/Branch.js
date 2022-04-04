@@ -377,7 +377,7 @@ class Branch{
 		for(let i = 0; i < this.getHeight(); i++){
 			let element = this.getFromIndex(i);
 			textAlign(RIGHT, TOP);
-			text(`${element.stringOfMetadata()}`, 12, 0);
+			text(`${element.stringOfMetadata()}`, 13, 0);
 			translate(0, 1);
 		}
 
