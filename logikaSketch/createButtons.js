@@ -4,7 +4,7 @@ function createButtons(){
 
   let posY = 0;
   let posX = 1;
-  let inputHandler = generateInputHandler(mainBranch, expressionCache);
+  let inputHandler = generateInputHandler(mainBranch);
   let creatingButton;
   for(let label of Object.keys(Expression.expressionMap)){
     if('ao'.includes(label)){continue;}

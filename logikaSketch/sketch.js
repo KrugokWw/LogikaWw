@@ -11,7 +11,6 @@
 
 
 let mainBranch;
-let expressionCache = new Expression(' ');
 
 let buttonList = {};
 
@@ -45,7 +44,6 @@ function draw() {
     console.log('------------');
     verifyTree(mainBranch, {}, 1);
     //console.log('__');
-    //console.log(expressionCache);
     //console.log(mainBranch);
   }
 
@@ -60,9 +58,8 @@ function draw() {
   pop();
 
 
-  text(expressionCache.stringOfSelf(), width-170, 620);
 
 
-  text("LogicChecker V002.026; experimental build", 0, 700);
+  text("LogicChecker V002.028; experimental build", 0, 700);
 
 }
