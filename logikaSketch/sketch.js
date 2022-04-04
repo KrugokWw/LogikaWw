@@ -60,6 +60,6 @@ function draw() {
 
 
 
-  text("LogicChecker V002.028; experimental build", 0, 700);
+  text("LogicChecker V002.029; experimental build", 0, 700);
 
 }

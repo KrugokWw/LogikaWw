@@ -4,122 +4,83 @@ function createButtons(){
 
   let posY = 0;
   let posX = 1;
-  let inputHandler = generateInputHandler(mainBranch);
-  let creatingButton;
+  let defaultButtonWidth = 30;
+  const inputHandler = generateInputHandler(mainBranch);
+  //let creatingButton;
+
+  const buttonFromParams = function(label, text, size, x, y){
+    let creatingButton = new Clickable();
+    creatingButton.label = label;
+    creatingButton.text = text;
+    creatingButton.resize(size, size);
+    creatingButton.locate(x, y);
+    return creatingButton;
+  }
+
+  const coordsFromPos = function(x, y){
+    return [width - posX*defaultButtonWidth - 5*posX, 5+posY*(defaultButtonWidth + 5)];
+  }
+
+
+
+
+
   for(let label of Object.keys(Expression.expressionMap)){
     if('ao'.includes(label)){continue;}
-    creatingButton = new Clickable();
-    creatingButton.label = label;
-    creatingButton.text = Expression.expressionMap[label];
-    creatingButton.resize(30, 30);
-    creatingButton.locate(width - posX*creatingButton.width - 5*posX, 5+posY*(creatingButton.height + 5));
-    list[label] = creatingButton;
+    list[label] = buttonFromParams(label, Expression.expressionMap[label], defaultButtonWidth, ...coordsFromPos(posX, posY));
     posY ++;
   }
   for(let i = "A".charCodeAt(0); i < "A".charCodeAt(0)+5; i++){
-    creatingButton = new Clickable();
-    creatingButton.label = "0" + String.fromCharCode(i);
-    creatingButton.text = String.fromCharCode(i);
-    creatingButton.resize(30, 30);
-    creatingButton.locate(width - posX*creatingButton.width - 5*posX, 5+posY*(creatingButton.height + 5));
-    list[creatingButton.label] = creatingButton;
+    let label = "0" + String.fromCharCode(i);
+    list[label] = buttonFromParams(label, String.fromCharCode(i), defaultButtonWidth, ...coordsFromPos(posX, posY));
     posY ++;
 
   }
   //variables
   for(let i = "a".charCodeAt(0); i < "a".charCodeAt(0)+5; i++){
-    creatingButton = new Clickable();
-    creatingButton.label = "v" + String.fromCharCode(i);
-    creatingButton.text = String.fromCharCode(i);
-    creatingButton.resize(30, 30);
-    creatingButton.locate(width - posX*creatingButton.width - 5*posX, 5+posY*(creatingButton.height + 5));
-    list[creatingButton.label] = creatingButton;
+    let label = "v" + String.fromCharCode(i);
+    list[label] = buttonFromParams(label, String.fromCharCode(i), defaultButtonWidth, ...coordsFromPos(posX, posY));
     posY ++;
 
   }
   for(let i = "x".charCodeAt(0); i < "x".charCodeAt(0)+3; i++){
-    creatingButton = new Clickable();
-    creatingButton.label = "v" + String.fromCharCode(i);
-    creatingButton.text = String.fromCharCode(i);
-    creatingButton.resize(30, 30);
-    creatingButton.locate(width - posX*creatingButton.width - 5*posX, 5+posY*(creatingButton.height + 5));
-    list[creatingButton.label] = creatingButton;
+    let label = "v" + String.fromCharCode(i);
+    list[label] = buttonFromParams(label, String.fromCharCode(i), defaultButtonWidth, ...coordsFromPos(posX, posY));
     posY ++;
 
   }
   posY = 0;
   posX++;
   for(let method of Object.keys(Statement.sourceAmount)){
-    creatingButton = new Clickable();
-    creatingButton.label = method;
-    creatingButton.text = `${method[0]}. ${Expression.expressionMap[method[1]]}`;
-    creatingButton.resize(30, 30);
-    creatingButton.locate(width - posX*creatingButton.width - 5*posX, 5+posY*(creatingButton.height + 5));
-    list[creatingButton.label] = creatingButton;
+    let label = method;
+    list[label] = buttonFromParams(label, `${method[0]}. ${Expression.expressionMap[method[1]]}`, defaultButtonWidth, ...coordsFromPos(posX, posY));
     posY ++;
   }
 
   posY = 0;
   posX ++;
   for(let number = 1; number <= 17; number ++){
-    creatingButton = new Clickable();
-    creatingButton.label = number;
-    creatingButton.text = number;
-    creatingButton.resize(30, 30);
-    creatingButton.locate(width - posX*creatingButton.width - 5*posX, 5+posY*(creatingButton.height + 5));
-    list[creatingButton.label] = creatingButton;
+    let label = number;
+    list[label] = buttonFromParams(label, number, defaultButtonWidth, ...coordsFromPos(posX, posY));
     posY ++;
   }
 
   posY = 0
   posX++;
-  creatingButton = new Clickable();
-  creatingButton.label = 'd0'; //direction 0 (up)
-  creatingButton.text = '[^]';
-  creatingButton.resize(30, 30);
-  creatingButton.locate(width - posX*creatingButton.width - 5*posX, 5+posY*(creatingButton.height + 5));
-  list[creatingButton.label] = creatingButton;
+  list['d0'] = buttonFromParams('d0', '[^]', defaultButtonWidth, ...coordsFromPos(posX, posY));
   posY ++;
-  creatingButton = new Clickable();
-  creatingButton.label = 'd2'; //direction 2 (down)
-  creatingButton.text = '[v]';
-  creatingButton.resize(30, 30);
-  creatingButton.locate(width - posX*creatingButton.width - 5*posX, 5+posY*(creatingButton.height + 5));
-  list[creatingButton.label] = creatingButton;
+  list['d1'] = buttonFromParams('d1', '[<]', defaultButtonWidth, ...coordsFromPos(posX, posY));
   posY ++;
-  creatingButton = new Clickable();
-  creatingButton.label = 'd1';
-  creatingButton.text = '[<]';
-  creatingButton.resize(30, 30);
-  creatingButton.locate(width - posX*creatingButton.width - 5*posX, 5+posY*(creatingButton.height + 5));
-  list[creatingButton.label] = creatingButton;
+  list['d2'] = buttonFromParams('d2', '[v]', defaultButtonWidth, ...coordsFromPos(posX, posY));
   posY ++;
-  creatingButton = new Clickable();
-  creatingButton.label = 'd3';
-  creatingButton.text = '[>]';
-  creatingButton.resize(30, 30);
-  creatingButton.locate(width - posX*creatingButton.width - 5*posX, 5+posY*(creatingButton.height + 5));
-  list[creatingButton.label] = creatingButton;
+  list['d3'] = buttonFromParams('d2', '[>]', defaultButtonWidth, ...coordsFromPos(posX, posY));
   posY ++;
-  creatingButton = new Clickable();
-  creatingButton.label = 'mode'; //switch input mode (replace / insert)
-  creatingButton.text = 'mode';
-  creatingButton.resize(30, 30);
-  creatingButton.locate(width - posX*creatingButton.width - 5*posX, 5+posY*(creatingButton.height + 5));
-  list[creatingButton.label] = creatingButton;
+  list['mode'] = buttonFromParams('mode', 'mode', defaultButtonWidth, ...coordsFromPos(posX, posY));
   posY ++;
 
   posY = 0;
   posX ++;
 
-/*
-  creatingButton = new Clickable();
-  creatingButton.label = 'export'; //switch input mode (replace / insert)
-  creatingButton.text = 'exp';
-  creatingButton.resize(30, 30);
-  creatingButton.locate(width - posX*creatingButton.width - 5*posX, 5+posY*(creatingButton.height + 5));
-  list[creatingButton.label] = creatingButton;
-*/
   
 
   for(let i of Object.keys(list)){
