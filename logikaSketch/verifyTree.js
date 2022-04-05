@@ -1,6 +1,6 @@
 /*
 
-Methodes legend
+Methods legend
 
 
 1. character ( + or -)
