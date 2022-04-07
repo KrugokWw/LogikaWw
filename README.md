@@ -1,4 +1,4 @@
-# LogikaWw
+# LogikaWw_altered
 
 Code for a website which allows the validation of logic conclusions. Currently hosted on netwwork.duckdns.org.
 
